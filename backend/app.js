@@ -23,7 +23,6 @@ var newsRouter = require('./routes/news');
 var commentsRouter = require('./routes/comments');
 var categoriesRouter = require('./routes/categories');
 var ordersRouter = require('./routes/orders');
-var ordersdetailsRouter = require('./routes/orderdetails');
 
 app.use('/api/products', productRouter);
 app.use('/api/users', usersRouter);
@@ -31,7 +30,6 @@ app.use('/api/news', newsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/orders', ordersRouter);
-app.use('/api/ordersdetails', ordersdetailsRouter);
 
 
 // view engine setup
