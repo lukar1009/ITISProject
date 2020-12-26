@@ -4,7 +4,7 @@ var router = express.Router();
 const { database } = require('../config/helpers');
 
 //GET All products
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   database.table('products as p')
           .join([{
             table: 'categories as c',

@@ -124,3 +124,5 @@ router.post('/new', function(req, res) {
             console.log(err);
         });
 });
+
+module.exports = router;

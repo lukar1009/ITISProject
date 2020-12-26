@@ -20,12 +20,15 @@ router.get('/', function(req, res, next) {
             .then(news => {
               if(news.length > 0) {
                 res.status(200).json({
-                  count: news.length,
-                  news: news
+                  news: news,
+                  message: "News found!",
+                  success: true
                 });
               } else {
                 res.status(200).json({
-                  message: "No news found!"
+                  news: null,
+                  message: "No news found!",
+                  success: false
                 })
               }
             }).catch(err => {
@@ -51,12 +54,16 @@ database.table('news')
             .then(news => {
             if(news) {
                 res.status(200).json({
-                news: news
+                news: news,
+                message: "News found!",
+                success: true
                 });
             } else {
                 res.json({
-                message: "No news found!"
-                })
+                  news: null,
+                  message: "No news found!",
+                  success: true
+                });
             }
             }).catch(err => {
             console.log(err);
@@ -161,3 +168,4 @@ if(newsId != null && !isNaN(newsId)) {
 }
 });
   
+module.exports = router;

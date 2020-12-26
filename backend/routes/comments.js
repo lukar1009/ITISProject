@@ -90,3 +90,5 @@ if(commentId != null && !isNaN(commentId)) {
     });
 }
 });
+
+module.exports = router;

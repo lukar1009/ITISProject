@@ -17,15 +17,20 @@ router.get('/', function(req, res, next) {
             .then(categories => {
               if(categories.length > 0) {
                 res.status(200).json({
-                  count: categories.length,
-                  categories: categories
+                  categories: categories,
+                  message: "Categories found!",
+                  success: true
                 });
               } else {
                 res.status(200).json({
-                  message: "No categories found!"
+                  categories: null,
+                  message: "No categories found!",
+                  success: false
                 })
               }
             }).catch(err => {
               console.log(err);
             });
 });
+
+module.exports = router;

@@ -16,12 +16,15 @@ router.get('/', function(req, res, next) {
           .then(users => {
             if(users.length > 0) {
               res.status(200).json({
-                count: users.length,
-                users: users
+                users: users,
+                message: "Users found!",
+                success: true
               });
             } else {
               res.status(200).json({
-                message: "No users found!"
+                users: null,
+                message: "No users found!",
+                success: false
               })
             }
           }).catch(err => {
@@ -47,11 +50,15 @@ router.get('/:id', function(req, res) {
            .then(user => {
              if(user) {
                res.status(200).json({
-                 user: user
+                 user: user,
+                 message: "User found!",
+                 success: true
                });
              } else {
                res.json({
-                 message: "No user found!"
+                 user: null,
+                 message: "No user found!",
+                 success: false
                })
              }
            }).catch(err => {
@@ -96,6 +103,7 @@ router.post('/authenticate', function(req, res) {
               })
   } else {
     res.json({
+      user: null,
       message: "User email or password not set!",
       success: false
     })
