@@ -20,7 +20,9 @@ router.get('/', function(req, res, next) {
             }])
             .withFields([
               'o.id',
+              'u.id as userId',
               'u.name as userName',
+              'p.id as productId',
               'p.name as productName',
               'od.quantity',
               'o.deliveryAddress',
@@ -33,12 +35,15 @@ router.get('/', function(req, res, next) {
             .then(orders => {
               if(orders.length > 0) {
                 res.status(200).json({
-                  count: orders.length,
-                  orders: orders
+                  data: orders,
+                  message: "Orders found!",
+                  success: true
                 });
               } else {
                 res.status(200).json({
-                  message: "No orders found!"
+                  data: null,
+                  message: "No orders found!",
+                  success: false
                 })
               }
             }).catch(err => {
@@ -69,11 +74,15 @@ database.table('orders as o')
             .then(order => {
             if(order) {
                 res.status(200).json({
-                order: order
+                data: order,
+                message: "Order found!",
+                success: true
                 });
             } else {
                 res.json({
-                message: "No order found!"
+                  data: null,
+                  message: "No order found!",
+                  success: false
                 })
             }
             }).catch(err => {

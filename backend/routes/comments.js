@@ -19,12 +19,15 @@ router.get('/', function(req, res, next) {
             .then(comments => {
               if(comments.length > 0) {
                 res.status(200).json({
-                  count: comments.length,
-                  comments: comments
+                  data: comments,
+                  message: "Comments found!",
+                  success: true
                 });
               } else {
                 res.status(200).json({
-                  message: "No comments found!"
+                  data: null,
+                  message: "No comments found!",
+                  success: false
                 })
               }
             }).catch(err => {

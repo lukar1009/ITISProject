@@ -6,13 +6,9 @@ const { database } = require('../config/helpers');
 //GET All products
 router.get('/', function(req, res) {
   database.table('products as p')
-          .join([{
-            table: 'categories as c',
-            on: 'p.categoryId = c.id'
-          }])
           .withFields([
             'p.id',
-            'c.title as category',
+            'p.categoryId',
             'p.title',
             'p.price',
             'p.description',
@@ -25,12 +21,15 @@ router.get('/', function(req, res) {
           .then(prods => {
             if(prods.length > 0) {
               res.status(200).json({
-                count: prods.length,
-                products: prods
+                data: prods,
+                message: "Products found",
+                success: true
               });
             } else {
               res.status(200).json({
-                message: "No products found!"
+                data: null,
+                message: "No products found!",
+                success: false
               })
             }
           }).catch(err => {
@@ -57,11 +56,15 @@ router.get('/:id', function(req, res) {
            .then(product => {
              if(product) {
                res.status(200).json({
-                product: product
+                data: product,
+                message: "Product found!",
+                success: true
                });
              } else {
                res.json({
-                 message: "No product found!"
+                 data: null,
+                 message: "No product found!",
+                 success: false
                })
              }
            }).catch(err => {

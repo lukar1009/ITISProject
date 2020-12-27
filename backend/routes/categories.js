@@ -17,13 +17,13 @@ router.get('/', function(req, res, next) {
             .then(categories => {
               if(categories.length > 0) {
                 res.status(200).json({
-                  categories: categories,
+                  data: categories,
                   message: "Categories found!",
                   success: true
                 });
               } else {
                 res.status(200).json({
-                  categories: null,
+                  data: null,
                   message: "No categories found!",
                   success: false
                 })

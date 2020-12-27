@@ -16,7 +16,7 @@ export class UsersService {
     let request = this.http.get(url);
     let response = new GeneralResponseModel();
     request.subscribe(res => {
-      response.data = res["data"];
+      response.data = res["users"];
       response.message = res["message"];
       response.success = res["success"];
     });

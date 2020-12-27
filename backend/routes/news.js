@@ -20,13 +20,13 @@ router.get('/', function(req, res, next) {
             .then(news => {
               if(news.length > 0) {
                 res.status(200).json({
-                  news: news,
+                  data: news,
                   message: "News found!",
                   success: true
                 });
               } else {
                 res.status(200).json({
-                  news: null,
+                  data: null,
                   message: "No news found!",
                   success: false
                 })
