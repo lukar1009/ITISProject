@@ -16,13 +16,13 @@ router.get('/', function(req, res, next) {
           .then(users => {
             if(users.length > 0) {
               res.status(200).json({
-                users: users,
+                data: users,
                 message: "Users found!",
                 success: true
               });
             } else {
               res.status(200).json({
-                users: null,
+                data: null,
                 message: "No users found!",
                 success: false
               })
@@ -50,13 +50,13 @@ router.get('/:id', function(req, res) {
            .then(user => {
              if(user) {
                res.status(200).json({
-                 user: user,
+                 data: user,
                  message: "User found!",
                  success: true
                });
              } else {
                res.json({
-                 user: null,
+                 data: null,
                  message: "No user found!",
                  success: false
                })
@@ -87,13 +87,13 @@ router.post('/authenticate', function(req, res) {
               .then(user => {
                 if(user) {
                   res.status(200).json({
-                    user: user,
+                    data: user,
                     message: "Login successful!",
                     success: true
                   });
                 } else {
                   res.status(200).json({
-                    user: null,
+                    data: null,
                     message: "Wrong email or password!",
                     success: false
                   });
@@ -125,11 +125,19 @@ router.post('/new', function(req, res) {
             }).then(newUserId => {
               if(newUserId > 0) {
                 res.json({
+                  data: {
+                    "id": newUserId,
+                    "name": name,
+                    "email": email,
+                    "password": password,
+                    "admin": admin
+                  },
                   message: "User successfully added!",
                   success: true
                 });
               } else {
                 res.json({
+                  data: null,
                   message: "Can't add new user!",
                   success: false
                 });
@@ -139,6 +147,7 @@ router.post('/new', function(req, res) {
             });
   } else {
     res.json({
+      data: null,
       message: "Invalid data sent!",
       success: false
     });

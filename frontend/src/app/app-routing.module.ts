@@ -5,32 +5,46 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { CartComponent } from './components/cart/cart.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
   },
   {
-    path: '/contact',
+    path: 'contact',
     component: ContactComponent
   },
   {
-    path: '/about',
+    path: 'about',
     component: AboutComponent
   },
   {
-    path: '/menu',
+    path: 'menu',
     component: MenuComponent
   },
   {
-    path: '/cart',
+    path: 'cart',
     component: CartComponent
   },
   {
-    path: '/admin',
+    path: 'admin',
     component: AdminPanelComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 

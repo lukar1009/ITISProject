@@ -11,75 +11,33 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUsers() {
+  async getAllUsers(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["users"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  getUserByID(userId: number): GeneralResponseModel {
+  async getUserByID(userId: number): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users/" + userId;
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["user"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  loginUser(body: AuthenticationParams): GeneralResponseModel {
+  async loginUser(body: AuthenticationParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users/authenticate";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["user"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 
-  insertNewUser(body: UserParams): GeneralResponseModel {
+  async insertNewUser(body: UserParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users/new";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 
-  updateExistingUser(body: UserParams): GeneralResponseModel {
+  async updateExistingUser(body: UserParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users/update";
-    let request = this.http.put(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.put<GeneralResponseModel>(url, body).toPromise();
   }
 
-  removeExistingUser(body: UserParams): GeneralResponseModel {
+  async removeExistingUser(body: UserParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/users/remove";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 }
