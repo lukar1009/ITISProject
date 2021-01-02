@@ -1,0 +1,79 @@
+.container-fluid {
+    background-color: #3e0202 !important;
+    background-image: none !important;
+    color: #e2b777;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+}
+
+.ol-popup {
+    position: absolute;
+    background-color: #3e0202;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #3e0202;
+    bottom: 12px;
+    left: -50px;
+    min-width: 100px;
+    color: #e2b777;
+  }
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.ol-popup:after {
+    color: #e2b777;
+    border-top-color: #3e0202;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+.ol-popup:before {
+    color: #e2b777;
+    border-top-color: #3e0202;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+.ol-popup-closer {
+    text-decoration: none;
+    color: #e2b777;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+
+b {
+    text-align: center;
+}
+
+.fa:hover{
+    color: #e2b777;
+    text-decoration: none;
+    opacity: 0.5;
+}
+
+.fa-facebook {
+    color: #e2b777;
+}
+
+
+.fa-instagram {
+    color: #e2b777;
+}
+
+#logo-img {
+    border-color: #e2b777;
+    border-style: double;
+    border-width: 5px;
+    border-radius: 50%;
+}

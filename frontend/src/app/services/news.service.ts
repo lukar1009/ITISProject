@@ -10,63 +10,28 @@ export class NewsService {
 
   constructor(private http: HttpClient) { }
 
-  getAllNews(): GeneralResponseModel {
+  async getAllNews(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/news";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  getNewsByID(newsId: number): GeneralResponseModel {
+  async getNewsByID(newsId: number): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/news/" + newsId;
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["news"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  insertNewNews(body: NewsParams): GeneralResponseModel {
+  async insertNewNews(body: NewsParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/news/new";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 
-  updateExistingNews(body: NewsParams): GeneralResponseModel {
+  async updateExistingNews(body: NewsParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/news/update";
-    let request = this.http.put(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.put<GeneralResponseModel>(url, body).toPromise();
   }
 
-  removeExistingNews(body: NewsParams): GeneralResponseModel {
+  async removeExistingNews(body: NewsParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/news/remove";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 }

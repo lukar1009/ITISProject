@@ -1,0 +1,28 @@
+.container-fluid {
+    background-color: #3e0202 !important;
+    background-image: none !important;
+}
+
+.carousel-img {
+    border-style: double;
+    border-color: #e2b777;
+    border-width: 5px;
+    border-radius: 5px;
+    height: 300px;
+}
+
+#right-logo-img {
+    border-color: #e2b777;
+    border-style: double;
+    border-width: 5px;
+    border-radius: 50%;
+    transform: rotate(20deg);
+}
+
+#left-logo-img {
+    border-color: #e2b777;
+    border-style: double;
+    border-width: 5px;
+    border-radius: 50%;
+    transform: rotate(-20deg);
+}

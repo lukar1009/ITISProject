@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-4 title-container rounded mt-4">
+            <h2 class="text-center">Welcome to Pizza La Vista!</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center news-box m-3 rounded" *ngFor="let data of news">
+        <div class="col-12">
+            <h3>{{data.title}}</h3>
+            <h5>{{data.author}}</h5>
+            <hr>
+            <p>{{data.content}}</p>
+        </div>
+    </div>
+</div>

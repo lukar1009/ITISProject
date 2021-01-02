@@ -24,6 +24,7 @@
     "devextreme": "20.2.4",
     "devextreme-angular": "20.2.4",
     "jquery": "^3.5.1",
+    "ol": "^6.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

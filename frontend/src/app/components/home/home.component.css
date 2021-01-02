@@ -1,0 +1,17 @@
+.container-fluid {
+    background-image: url('../../../assets/img/background_home2.jpg');
+    height: 84vh;
+}
+
+.title-container, .news-box {
+    background-color: #3e0202;
+    color: #e2b777;
+}
+
+hr {
+    background-color: #e2b777;
+}
+
+.news-box p {
+    color: white;
+}

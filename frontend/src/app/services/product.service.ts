@@ -10,63 +10,28 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts(): GeneralResponseModel {
+  async getAllProducts(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/products";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  getProductByID(productId: number): GeneralResponseModel {
+  async getProductByID(productId: number): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/products/" + productId;
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  insertNewProduct(body: ProductParams): GeneralResponseModel {
+  async insertNewProduct(body: ProductParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/products/new";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 
-  updateExistingProduct(body: ProductParams): GeneralResponseModel {
+  async updateExistingProduct(body: ProductParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/products/update";
-    let request = this.http.put(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.put<GeneralResponseModel>(url, body).toPromise();
   }
 
-  removeExistingProduct(body: ProductParams): GeneralResponseModel {
+  async removeExistingProduct(body: ProductParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/products/remove";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 }

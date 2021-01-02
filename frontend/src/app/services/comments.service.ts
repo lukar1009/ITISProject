@@ -10,39 +10,18 @@ export class CommentsService {
 
   constructor(private http: HttpClient) { }
 
-  getAllComments(): GeneralResponseModel {
+  async getAllComments(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/comments";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  insertNewComment(body: CommentParams): GeneralResponseModel {
+  async insertNewComment(body: CommentParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/comments/new";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 
-  removeExistingComment(body: CommentParams): GeneralResponseModel {
+  async removeExistingComment(body: CommentParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/comments/remove";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 }

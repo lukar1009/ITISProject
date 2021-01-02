@@ -9,15 +9,8 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(): GeneralResponseModel {
+  async getAllCategories(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/categories";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 }

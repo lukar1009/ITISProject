@@ -1,0 +1,18 @@
+.title-container, .login-container, .register-container {
+    background-color: #3e0202;
+    color: #e2b777;
+}
+
+.container-fluid {
+    background-image: url('../../../assets/img/background_home2.jpg');
+    height: 84vh;
+}
+
+.dx-button {
+    background-color: #e2b777 !important;
+    color: #3e0202 !important;
+}
+
+.dx-icon, .dx-icon-check{
+    color: #3e0202 !important;
+}

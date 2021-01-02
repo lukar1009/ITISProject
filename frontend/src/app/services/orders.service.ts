@@ -10,39 +10,18 @@ export class OrdersService {
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts(): GeneralResponseModel {
+  async getAllOrders(): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/orders";
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  getProductByID(orderId: number): GeneralResponseModel {
+  async getOrderByID(orderId: number): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/orders/" + orderId;
-    let request = this.http.get(url);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = res["data"];
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.get<GeneralResponseModel>(url).toPromise();
   }
 
-  insertNewProduct(body: OrderParams): GeneralResponseModel {
+  async insertNewOrder(body: OrderParams): Promise<GeneralResponseModel> {
     let url = "http://localhost:3000/api/orders/new";
-    let request = this.http.post(url, body);
-    let response = new GeneralResponseModel();
-    request.subscribe(res => {
-      response.data = null;
-      response.message = res["message"];
-      response.success = res["success"];
-    });
-    return response;
+    return await this.http.post<GeneralResponseModel>(url, body).toPromise();
   }
 }
