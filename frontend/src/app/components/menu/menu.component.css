@@ -1,0 +1,14 @@
+.container-fluid {
+    background-color: #3e0202;
+}
+
+.cat-title {
+    background-color: #3e0202;
+    color: #e2b777;
+    border: 5px double #e2b777;
+}
+
+.dx-button {
+    background-color: #3e0202;
+    color: #e2b777;
+}

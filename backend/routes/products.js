@@ -87,11 +87,22 @@ router.post('/new', function(req, res) {
           }).then(newProductId => {
             if(newProductId > 0) {
               res.json({
+                data: {
+                  id: newProductId,
+                  title: title,
+                  description: description,
+                  imageUrl: imageUrl,
+                  price: price,
+                  categoryId: categoryId,
+                  createdAt: createdAt,
+                  updatedAt: updatedAt
+                },
                 message: "Product successfully added!",
                 success: true
               });
             } else {
               res.json({
+                data: null,
                 message: "Can't add new product!",
                 success: false
               });
