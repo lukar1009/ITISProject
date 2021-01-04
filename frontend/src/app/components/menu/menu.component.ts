@@ -31,7 +31,15 @@ export class MenuComponent implements OnInit {
               private _categoriesService: CategoriesService) { }
 
   ngOnInit(): void {
+    this.initialCartCheck();
     this.getAllCategories();
+  }
+
+  initialCartCheck() {
+    if(sessionStorage.getItem("cart")) {
+      let tempArr: number[] = JSON.parse(sessionStorage.getItem("cart"));
+      tempArr.forEach(el => this.choosenProductsForCart.push(el));
+    }
   }
 
   getAllCategories() {
@@ -106,6 +114,7 @@ export class MenuComponent implements OnInit {
       width: 300,
       position: 'top center'
     }, "success", 1500);
+
     sessionStorage.setItem("cart", JSON.stringify(this.choosenProductsForCart));
   }
 }

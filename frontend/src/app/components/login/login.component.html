@@ -13,6 +13,10 @@
                                  [showClearButton]="true"
                                  [(value)]="loginEmailValue"
                                  mode="email">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Email is required!"></dxi-validation-rule>
+                                    <dxi-validation-rule type="email" message="Email is invalid!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
@@ -22,11 +26,15 @@
                                  [showClearButton]="true"
                                  [(value)]="loginPasswordValue"
                                  mode="password">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Password is required!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
             <div class="row justify-content-center mt-2">
                 <div class="col-4">
+                    <dx-validation-summary id="summary"></dx-validation-summary>
                     <dx-button
                             text="Submit!"
                             icon="check"
@@ -42,6 +50,9 @@
                     <dx-text-box placeholder="Enter your Name..."
                                  [showClearButton]="true"
                                  [(value)]="registerNameValue">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Name is required!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
@@ -51,6 +62,10 @@
                                  [showClearButton]="true"
                                  [(value)]="registerEmailValue"
                                  mode="email">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Email is required!"></dxi-validation-rule>
+                                    <dxi-validation-rule type="email" message="Email is invalid!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
@@ -60,6 +75,9 @@
                                  [showClearButton]="true"
                                  [(value)]="registerPasswordValue"
                                  mode="password">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Password is required!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
@@ -69,11 +87,15 @@
                                  [showClearButton]="true"
                                  [(value)]="registerConfirmPasswordValue"
                                  mode="password">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="You must confirm your password!"></dxi-validation-rule>
+                                </dx-validator>
                     </dx-text-box>
                 </div>
             </div>
             <div class="row justify-content-center mt-2">
                 <div class="col-4">
+                    <dx-validation-summary id="summary"></dx-validation-summary>
                     <dx-button
                             text="Submit!"
                             icon="check"

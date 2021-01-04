@@ -1,0 +1,21 @@
+.container-fluid {
+    background-color: #3e0202;
+}
+
+h1, h3 {
+    color: #e2b777;
+}
+
+.order-container {
+    background-color: #3e0202;
+    color: #e2b777;
+}
+
+.dx-button {
+    background-color: #e2b777 !important;
+    color: #3e0202 !important;
+}
+
+.dx-icon, .dx-icon-check{
+    color: #3e0202 !important;
+}

@@ -1,1 +1,83 @@
-<p>cart works!</p>
+<div class="container-fluid" *ngIf="!cartEmpty && productsLoaded">
+    <div class="row justify-content-center pt-4">
+        <div class="col-5">
+            <h3 class="text-center">Your ordered items:</h3>
+        </div>
+        <div class="col-8">
+            <dx-data-grid
+                        [dataSource]="cartItems"
+                        keyExpr="id"
+                        [showBorders]="true"
+                        (onRowRemoving)="deleteRow($event)">
+                <dxo-paging [enabled]="true"></dxo-paging>
+                <dxo-editing
+                            mode="row"
+                            [allowDeleting]="true"
+                            [useIcons]="true">
+                </dxo-editing>
+
+                <dxi-column dataField="title" caption="Title"></dxi-column>
+                <dxi-column dataField="description" caption="Description"></dxi-column>
+                <dxi-column dataField="price" caption="Price"></dxi-column>
+            </dx-data-grid>
+        </div>
+
+        <div class="col-5 order-container m-4 p-2 text-center justify-content-center rounded">
+            <h4>Order!</h4>
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <dx-text-box placeholder="Enter your Name..."
+                                 [showClearButton]="true"
+                                 [(value)]="orderNameValue">
+                                 <dx-validator>
+                                     <dxi-validation-rule type="required" message="Name is required!"></dxi-validation-rule>
+                                 </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-2">
+                <div class="col-8">
+                    <dx-text-box placeholder="Enter your Phone..."
+                                 [showClearButton]="true"
+                                 [(value)]="orderPhoneValue">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Phone is required!"></dxi-validation-rule>
+                                </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-2">
+                <div class="col-8">
+                    <dx-text-box placeholder="Enter your Address..."
+                                 [showClearButton]="true"
+                                 [(value)]="orderAdressValue">
+                                 <dx-validator>
+                                    <dxi-validation-rule type="required" message="Address is required!"></dxi-validation-rule>
+                                </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-2">
+                <div class="col-4">
+                    <dx-validation-summary id="summary"></dx-validation-summary>
+                    <dx-button
+                            text="Submit!"
+                            icon="check"
+                            type="default"
+                            (onClick)="placeOrder()"></dx-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="cartEmpty || !userLoggedIn">
+    <div class="row justify-content-center">
+        <h1>Cart is empty or you are not logged in! Please, add something to your cart and make sure that you are logged in!</h1>
+    </div>
+    <div class="row justify-content-center" style="height: 300px;">
+        <div class="col-6 text-center">
+            <img id="logo-img" src="../../../assets/img/latest/Logo pizzala vista.jpeg" alt="Chef.png" class="img-fluid">
+        </div>
+    </div>
+</div>
