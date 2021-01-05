@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
               'u.id as userId',
               'u.name as userName',
               'p.id as productId',
-              'p.name as productName',
+              'p.title as productName',
               'od.quantity',
               'o.deliveryAddress',
               'od.createdAt'

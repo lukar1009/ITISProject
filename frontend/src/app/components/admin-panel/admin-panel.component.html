@@ -1,1 +1,156 @@
-<p>admin-panel works!</p>
+<div class="container-fluid pt-4">
+    <dx-toolbar [items]="toolbarContent"
+                style="background-color: #3e0202;">
+    </dx-toolbar>
+    <dx-drawer class="text-gold"
+               [(opened)]="isDrawerOpen"
+               [height]="400"
+               template="template"
+               [closeOnOutsideClick]="false"
+               [revealMode]="selectedRevealMode"
+               [position]="selectedPosition"
+               [openedStateMode]="selectedOpenMode">
+        <div *dxTemplate="let data of 'template'" style="width: 200px;">
+            <dx-list class="text-gold"
+                     [dataSource]="listItems"
+                     [hoverStateEnabled]="false"
+                     [activeStateEnabled]="false"
+                     [focusStateEnabled]="false"
+                     (onItemClick)="onListItemClick($event)">
+            </dx-list>
+        </div>    
+        <div>
+            <div class="row justify-content-center ml-2">
+                <h3 class="text-gold">Please choose a table from Menu.</h3>
+                <div class="col-12" *ngIf="tableChoosen == 1">
+                    <dx-data-grid
+                                [dataSource]="userItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="name" caption="Name"></dxi-column>
+                        <dxi-column dataField="email" caption="Email"></dxi-column>
+                        <dxi-column dataField="password" caption="Password"></dxi-column>
+                        <dxi-column dataField="admin" caption="Is Admin"></dxi-column>
+                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
+                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="col-12" *ngIf="tableChoosen == 2">
+                    <dx-data-grid
+                                [dataSource]="productItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="title" caption="Title"></dxi-column>
+                        <dxi-column dataField="imageUrl" caption="Image URL"></dxi-column>
+                        <dxi-column dataField="description" caption="Description"></dxi-column>
+                        <dxi-column dataField="price" caption="Price"></dxi-column>
+                        <dxi-column dataField="categoryId" caption="Category ID"></dxi-column>
+                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
+                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="col-12" *ngIf="tableChoosen == 3">
+                    <dx-data-grid
+                                [dataSource]="categoryItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="title" caption="Title"></dxi-column>
+                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
+                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="col-12" *ngIf="tableChoosen == 4">
+                    <dx-data-grid
+                                [dataSource]="orderItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="userId" caption="User ID"></dxi-column>
+                        <dxi-column dataField="userName" caption="User's Name"></dxi-column>
+                        <dxi-column dataField="productId" caption="Product ID"></dxi-column>
+                        <dxi-column dataField="productName" caption="Product Name"></dxi-column>
+                        <dxi-column dataField="quantity" caption="Quantity"></dxi-column>
+                        <dxi-column dataField="deliveryAddress" caption="Delivery Address"></dxi-column>
+                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="col-12" *ngIf="tableChoosen == 5">
+                    <dx-data-grid
+                                [dataSource]="newsItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="title" caption="Title"></dxi-column>
+                        <dxi-column dataField="author" caption="Author"></dxi-column>
+                        <dxi-column dataField="imageUrl" caption="Image URL"></dxi-column>
+                        <dxi-column dataField="content" caption="Content"></dxi-column>
+                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
+                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                    </dx-data-grid>
+                </div>
+                <div class="col-12" *ngIf="tableChoosen == 6">
+                    <dx-data-grid
+                                [dataSource]="commentsItems"
+                                keyExpr="id"
+                                [showBorders]="true">
+                        <dxo-paging [enabled]="true"></dxo-paging>
+                        <dxo-editing
+                                    mode="row"
+                                    [allowDeleting]="true"
+                                    [allowUpdating]="true"
+                                    [allowAdding]="true"
+                                    [useIcons]="true">
+                        </dxo-editing>
+
+                        <dxi-column dataField="title" caption="Title"></dxi-column>
+                        <dxi-column dataField="author" caption="Author"></dxi-column>
+                        <dxi-column dataField="content" caption="Content"></dxi-column>
+                    </dx-data-grid>
+                </div>
+            </div>
+        </div>
+    </dx-drawer>
+</div>

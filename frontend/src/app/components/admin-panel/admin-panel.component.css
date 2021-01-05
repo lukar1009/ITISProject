@@ -1,0 +1,21 @@
+.container-fluid {
+    background-color: #3e0202;
+    color: #e2b777;
+}
+
+.text-gold {
+    color: #e2b777 !important;
+}
+
+::ng-deep .dx-item-content, .dx-list-item-content {
+    color: #e2b777 !important;
+}
+
+::ng-deep .dx-item-content .dx-icon {
+    color: #e2b777 !important;
+}
+
+.dx-button, .dx-button-content {
+    background-color: #e2b777 !important;
+    color: #3e0202 !important;
+}
