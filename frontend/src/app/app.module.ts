@@ -11,7 +11,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { CartComponent } from './components/cart/cart.component';
 import { LoginComponent } from './components/login/login.component';
-import { DxBoxModule, DxButtonModule, DxDataGridModule, DxDrawerModule, DxListModule, DxTextBoxModule, DxToolbarModule, DxValidationSummaryModule, DxValidatorModule } from 'devextreme-angular';
+import { DxBoxModule, DxButtonModule, DxDataGridModule, DxDrawerModule, DxListModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule, DxValidationSummaryModule, DxValidatorModule } from 'devextreme-angular';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -38,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     DxValidatorModule,
     DxValidationSummaryModule,
     DxDrawerModule,
-    DxToolbarModule
+    DxToolbarModule,
+    DxTextAreaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

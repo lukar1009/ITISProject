@@ -1,6 +1,6 @@
 .container-fluid {
     background-image: url('../../../assets/img/background_home2.jpg');
-    height: 84vh;
+    height: 100%;
 }
 
 .title-container, .news-box {

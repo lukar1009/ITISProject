@@ -11,12 +11,22 @@ import { OrdersService } from 'src/app/services/orders.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { NewsService } from 'src/app/services/news.service';
 import { CommentsService } from 'src/app/services/comments.service';
+import { UserParams } from 'src/app/models/http-models/UserParams';
+import { CommentParams } from 'src/app/models/http-models/CommentParams';
+import { NewsParams } from 'src/app/models/http-models/NewsParams';
+import { OrderParams } from 'src/app/models/http-models/OrderParams';
+import { ProductParams } from 'src/app/models/http-models/ProductParams';
 
 
 class NavListItem {
   id: number;
   text: string;
   icon: string;
+}
+
+class DxoDropdown {
+  id: number;
+  value: string;
 }
 
 @Component({
@@ -59,7 +69,7 @@ export class AdminPanelComponent implements OnInit {
     }
   ];
 
-  public isDrawerOpen: boolean;
+  public isDrawerOpen: boolean = true;
   public selectedOpenMode: string = 'shrink';
   public selectedPosition: string = 'left';
   public selectedRevealMode: string = 'slide';
@@ -73,6 +83,20 @@ export class AdminPanelComponent implements OnInit {
       onClick: () => this.isDrawerOpen = !this.isDrawerOpen
     }
   }];
+
+  public adminLookups: DxoDropdown[] = [
+    {
+      id: 0,
+      value: "No"
+    },
+    {
+      id: 1,
+      value: "Yes"
+    }
+  ];
+  public categoryLookups: DxoDropdown[] = [];
+  public userLookups: DxoDropdown[] = [];
+  public productLookups: DxoDropdown[] = [];
 
   public tableChoosen: number = 0;
   public userItems: User[] = [];
@@ -92,17 +116,34 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fillLookups(lookupToFill: DxoDropdown[], arrayToFillWith: any[]): DxoDropdown[] {
+    lookupToFill = [];
+    for(var i = 0; i < arrayToFillWith.length; i++) {
+      let newLookup = new DxoDropdown();
+      newLookup.id = arrayToFillWith[i]["id"];
+      if(arrayToFillWith[i]["name"] == undefined || arrayToFillWith[i]["name"] == null) {
+        newLookup.value = arrayToFillWith[i]["title"];
+      } else {
+        newLookup.value = arrayToFillWith[i]["name"];
+      }
+      lookupToFill.push(newLookup);
+    }
+    return lookupToFill;
+  }
+
   onListItemClick(e) {
-    console.log(e.itemData.id);
-    this.tableChoosen = +e.itemData.id;
-    switch(this.tableChoosen) {
+    let choosenId = +e.itemData.id;
+    switch(choosenId) {
       case 1: this.getAllUsers();
               break;
       case 2: this.getAllProducts();
+              this.getAllCategories();
               break;
       case 3: this.getAllCategories();
               break;
       case 4: this.getAllOrders();
+              this.getAllUsers();
+              this.getAllProducts();
               break;
       case 5: this.getAllNews();
               break;
@@ -110,6 +151,7 @@ export class AdminPanelComponent implements OnInit {
               break;
       default: break;
     }
+    this.tableChoosen = choosenId;
   }
 
   getAllUsers() {
@@ -122,6 +164,7 @@ export class AdminPanelComponent implements OnInit {
 
   mapUsersResponse(data: any) {
     this.userItems = data.map(u => this.populateUserData(u));
+    this.userLookups = this.fillLookups(this.userLookups, this.userItems);
   }
 
   populateUserData(data: any) {
@@ -136,6 +179,31 @@ export class AdminPanelComponent implements OnInit {
     return res;
   }
 
+  userOnRowInserting(e) {
+    let newUser: UserParams = new UserParams();
+    newUser.name = e.data["name"];
+    newUser.admin = e.data["admin"];
+    newUser.email = e.data["email"];
+    newUser.password = e.data["password"];
+    this._usersService.insertNewUser(newUser);
+  }
+
+  userOnRowUpdating(e) {
+    let updatedUser: UserParams = new UserParams();
+    updatedUser.userId = +e.key;
+    updatedUser.name = e.newData["name"] == undefined ? e.oldData["name"] : e.newData["name"];
+    updatedUser.email = e.newData["email"] == undefined ? e.oldData["email"] : e.newData["email"];
+    updatedUser.password = e.newData["password"] == undefined ? e.oldData["password"] : e.newData["password"];
+    updatedUser.admin = e.newData["admin"] == undefined ? e.oldData["admin"] : e.newData["admin"];
+    this._usersService.updateExistingUser(updatedUser);
+  }
+
+  userOnRowRemoving(e) {
+    let removeUser: UserParams = new UserParams();
+    removeUser.userId = +e.key;
+    this._usersService.removeExistingUser(removeUser);
+  }
+
   getAllProducts() {
     this._productsService.getAllProducts().then(res => {
       if(res.success && res.data) {
@@ -146,6 +214,7 @@ export class AdminPanelComponent implements OnInit {
 
   mapProductsResponse(data: any) {
     this.productItems = data.map(p => this.populateProductsResponse(p));
+    this.productLookups = this.fillLookups(this.productLookups, this.productItems);
   }
 
   populateProductsResponse(data: any) {
@@ -161,6 +230,33 @@ export class AdminPanelComponent implements OnInit {
     return res;
   }
 
+  productOnRowInserting(e) {
+    let productParams: ProductParams = new ProductParams();
+    productParams.title = e.data["title"];
+    productParams.imageUrl = e.data["imageUrl"];
+    productParams.description = e.data["description"];
+    productParams.price = e.data["price"];
+    productParams.categoryId = e.data["categoryId"];
+    this._productsService.insertNewProduct(productParams);
+  }
+
+  productOnRowUpdating(e) {
+    let productParams: ProductParams = new ProductParams();
+    productParams.productId = +e.key;
+    productParams.title = e.newData["title"] == undefined ? e.oldData["title"] : e.newData["title"];
+    productParams.imageUrl = e.newData["imageUrl"] == undefined ? e.oldData["imageUrl"] : e.newData["imageUrl"];
+    productParams.description = e.newData["description"] == undefined ? e.oldData["description"] : e.newData["description"];
+    productParams.price = e.newData["price"] == undefined ? e.oldData["price"] : e.newData["price"];
+    productParams.categoryId = e.newData["categoryId"] == undefined ? e.oldData["categoryId"] : e.newData["categoryId"];
+    this._productsService.updateExistingProduct(productParams);
+  }
+
+  productOnRowRemoving(e) {
+    let productParams: ProductParams = new ProductParams();
+    productParams.productId = +e.key;
+    this._productsService.removeExistingProduct(productParams);
+  }
+
   getAllCategories() {
     this._categoriesService.getAllCategories().then(res => {
       if(res.success && res.data) {
@@ -171,6 +267,7 @@ export class AdminPanelComponent implements OnInit {
 
   mapCategoriesResponse(data: any) {
     this.categoryItems = data.map(c => this.populateCategoriesData(c));
+    this.categoryLookups = this.fillLookups(this.categoryLookups, this.categoryItems);
   }
 
   populateCategoriesData(data: any) {
@@ -183,9 +280,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   getAllOrders() {
-    console.log("get all orders");
     this._ordersService.getAllOrders().then(res => {
-      console.log(res);
       if(res.success && res.data) {
         this.mapOrdersResponse(res.data);
       }
@@ -207,6 +302,15 @@ export class AdminPanelComponent implements OnInit {
     res.userId = data["userId"];
     res.userName = data["userName"];
     return res;
+  }
+
+  orderOnRowInserting(e) {
+    let orderParams: OrderParams = new OrderParams();
+    orderParams.userId = e.data["userId"];
+    orderParams.productId = e.data["productId"];
+    orderParams.deliveryAddress = e.data["deliveryAddress"];
+    orderParams.quantity = e.data["quantity"];
+    this._ordersService.insertNewOrder(orderParams);
   }
 
   getAllNews() {
@@ -233,6 +337,31 @@ export class AdminPanelComponent implements OnInit {
     return res;
   }
 
+  newsOnRowInserting(e) {
+    let newsParams: NewsParams = new NewsParams();
+    newsParams.title = e.data["title"];
+    newsParams.author = e.data["author"];
+    newsParams.imageUrl = e.data["imageUrl"];
+    newsParams.content = e.data["content"];
+    this._newsService.insertNewNews(newsParams);
+  }
+
+  newsOnRowUpdating(e) {
+    let newsParams: NewsParams = new NewsParams();
+    newsParams.newsId = +e.key;
+    newsParams.title = e.newData["title"] == undefined ? e.oldData["title"] : e.newData["title"];
+    newsParams.author = e.newData["author"] == undefined ? e.oldData["author"] : e.newData["author"];
+    newsParams.imageUrl = e.newData["imageUrl"] == undefined ? e.oldData["imageUrl"] : e.newData["imageUrl"];
+    newsParams.content = e.newData["content"] == undefined ? e.oldData["content"] : e.newData["content"];
+    this._newsService.updateExistingNews(newsParams);
+  }
+
+  newsOnRowRemoving(e) {
+    let newsParams: NewsParams = new NewsParams();
+    newsParams.newsId = +e.key;
+    this._newsService.removeExistingNews(newsParams);
+  }
+
   getAllComments() {
     this._commentsService.getAllComments().then(res => {
       if(res.success && res.data) {
@@ -252,6 +381,20 @@ export class AdminPanelComponent implements OnInit {
     res.id = data["id"];
     res.title = data["title"];
     return res;
+  }
+
+  commentsOnRowInserting(e) {
+    let commentParams: CommentParams = new CommentParams();
+    commentParams.title = e.data["title"];
+    commentParams.author = e.data["author"];
+    commentParams.content = e.data["content"];
+    this._commentsService.insertNewComment(commentParams);
+  }
+
+  commentsOnRowRemoving(e) {
+    let commentParams: CommentParams = new CommentParams();
+    commentParams.commentId = e.key;
+    this._commentsService.removeExistingComment(commentParams);
   }
 
 }

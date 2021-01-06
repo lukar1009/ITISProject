@@ -73,7 +73,7 @@ database.table('news')
 //POST Insert new news
 router.post('/new', function(req, res) {
 let { title, author, imageUrl, content } = req.body;
-database.table('products')
+database.table('news')
         .insert({
             title: title,
             author: author,

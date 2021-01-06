@@ -4,7 +4,7 @@
     </dx-toolbar>
     <dx-drawer class="text-gold"
                [(opened)]="isDrawerOpen"
-               [height]="400"
+               height="auto"
                template="template"
                [closeOnOutsideClick]="false"
                [revealMode]="selectedRevealMode"
@@ -26,8 +26,17 @@
                     <dx-data-grid
                                 [dataSource]="userItems"
                                 keyExpr="id"
-                                [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
+                                [showBorders]="true"
+                                (onRowInserting)="userOnRowInserting($event)"
+                                (onRowUpdating)="userOnRowUpdating($event)"
+                                (onRowRemoving)="userOnRowRemoving($event)">
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
                         <dxo-editing
                                     mode="row"
                                     [allowDeleting]="true"
@@ -39,17 +48,29 @@
                         <dxi-column dataField="name" caption="Name"></dxi-column>
                         <dxi-column dataField="email" caption="Email"></dxi-column>
                         <dxi-column dataField="password" caption="Password"></dxi-column>
-                        <dxi-column dataField="admin" caption="Is Admin"></dxi-column>
-                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
-                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                        <dxi-column dataField="admin" caption="Is Admin">
+                            <dxo-lookup [dataSource]="adminLookups"
+                                        displayExpr="value"
+                                        valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
                     </dx-data-grid>
                 </div>
                 <div class="col-12" *ngIf="tableChoosen == 2">
                     <dx-data-grid
                                 [dataSource]="productItems"
                                 keyExpr="id"
-                                [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
+                                [showBorders]="true"
+                                (onRowInserting)="productOnRowInserting($event)"
+                                (onRowUpdating)="productOnRowUpdating($event)"
+                                (onRowRemoving)="productOnRowRemoving($event)">
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
                         <dxo-editing
                                     mode="row"
                                     [allowDeleting]="true"
@@ -62,9 +83,12 @@
                         <dxi-column dataField="imageUrl" caption="Image URL"></dxi-column>
                         <dxi-column dataField="description" caption="Description"></dxi-column>
                         <dxi-column dataField="price" caption="Price"></dxi-column>
-                        <dxi-column dataField="categoryId" caption="Category ID"></dxi-column>
-                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
-                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
+                        <dxi-column dataField="categoryId" caption="Category ID">
+                            <dxo-lookup [dataSource]="categoryLookups"
+                                        displayExpr="value"
+                                        valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
                     </dx-data-grid>
                 </div>
                 <div class="col-12" *ngIf="tableChoosen == 3">
@@ -72,49 +96,67 @@
                                 [dataSource]="categoryItems"
                                 keyExpr="id"
                                 [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
-                        <dxo-editing
-                                    mode="row"
-                                    [allowDeleting]="true"
-                                    [allowUpdating]="true"
-                                    [allowAdding]="true"
-                                    [useIcons]="true">
-                        </dxo-editing>
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
 
                         <dxi-column dataField="title" caption="Title"></dxi-column>
-                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
-                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
                     </dx-data-grid>
                 </div>
                 <div class="col-12" *ngIf="tableChoosen == 4">
                     <dx-data-grid
                                 [dataSource]="orderItems"
                                 keyExpr="id"
-                                [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
+                                [showBorders]="true"
+                                (onRowInserting)="orderOnRowInserting($event)">
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
                         <dxo-editing
                                     mode="row"
-                                    [allowDeleting]="true"
-                                    [allowUpdating]="true"
                                     [allowAdding]="true"
                                     [useIcons]="true">
                         </dxo-editing>
 
-                        <dxi-column dataField="userId" caption="User ID"></dxi-column>
-                        <dxi-column dataField="userName" caption="User's Name"></dxi-column>
-                        <dxi-column dataField="productId" caption="Product ID"></dxi-column>
-                        <dxi-column dataField="productName" caption="Product Name"></dxi-column>
+                        <dxi-column dataField="userId" caption="User">
+                            <dxo-lookup [dataSource]="userLookups"
+                                        displayExpr="value"
+                                        valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="productId" caption="Product">
+                            <dxo-lookup [dataSource]="productLookups"
+                                        displayExpr="value"
+                                        valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
                         <dxi-column dataField="quantity" caption="Quantity"></dxi-column>
                         <dxi-column dataField="deliveryAddress" caption="Delivery Address"></dxi-column>
-                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
                     </dx-data-grid>
                 </div>
                 <div class="col-12" *ngIf="tableChoosen == 5">
                     <dx-data-grid
                                 [dataSource]="newsItems"
                                 keyExpr="id"
-                                [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
+                                [showBorders]="true"
+                                (onRowInserting)="newsOnRowInserting($event)"
+                                (onRowUpdating)="newsOnRowUpdating($event)"
+                                (onRowRemoving)="newsOnRowRemoving($event)">
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
                         <dxo-editing
                                     mode="row"
                                     [allowDeleting]="true"
@@ -127,20 +169,25 @@
                         <dxi-column dataField="author" caption="Author"></dxi-column>
                         <dxi-column dataField="imageUrl" caption="Image URL"></dxi-column>
                         <dxi-column dataField="content" caption="Content"></dxi-column>
-                        <dxi-column dataField="createdAt" caption="Created At"></dxi-column>
-                        <dxi-column dataField="updatedAt" caption="Updated At"></dxi-column>
                     </dx-data-grid>
                 </div>
                 <div class="col-12" *ngIf="tableChoosen == 6">
                     <dx-data-grid
                                 [dataSource]="commentsItems"
                                 keyExpr="id"
-                                [showBorders]="true">
-                        <dxo-paging [enabled]="true"></dxo-paging>
+                                [showBorders]="true"
+                                (onRowInserting)="commentsOnRowInserting($event)"
+                                (onRowRemoving)="commentsOnRowRemoving($event)">
+                        <dxo-paging [enabled]="true"
+                                    [pageSize]="5">
+                        </dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true"
+                                   [allowedPageSizes]="[5, 10, 20]"
+                                   [showInfo]="true">
+                        </dxo-pager>
                         <dxo-editing
                                     mode="row"
                                     [allowDeleting]="true"
-                                    [allowUpdating]="true"
                                     [allowAdding]="true"
                                     [useIcons]="true">
                         </dxo-editing>

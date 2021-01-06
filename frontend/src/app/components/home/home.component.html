@@ -12,4 +12,56 @@
             <p>{{data.content}}</p>
         </div>
     </div>
+
+    <br />
+
+    <div class="row justify-content-center">
+        <div class="col-4 title-container rounded mt-4">
+            <h2 class="text-center">Leave us your comment!</h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center news-box m-3 rounded" *ngFor="let com of comments">
+        <div class="col-12">
+            <h3>{{com.title}}</h3>
+            <h5>{{com.author}}</h5>
+            <hr>
+            <p>{{com.content}}</p>
+        </div>
+        <br />
+    </div>
+
+    <div class="row justify-content-center news-box m-3 rounded">
+        <div class="col-12 row m-2">
+            <div class="col-5">
+                <dx-text-box placeholder="Enter your name..."
+                [showClearButton]="true"
+                [(value)]="nameValue"></dx-text-box>
+            </div>
+        </div>
+        <div class="col-12 row m-2">
+            <div class="col-5">
+                <dx-text-box placeholder="Enter comment title..."
+                [showClearButton]="true"
+                [(value)]="titleValue"></dx-text-box>
+            </div>
+        </div>
+        <div class="col-12 row m-2">
+            <div class="col-5">
+                <dx-text-area placeholder="Enter your comment..."
+                            [(value)]="commentValue"
+                            [height]="90">
+                </dx-text-area>
+            </div>
+        </div>
+        <div class="col-12 row m-2">
+            <div class="col-2">
+                <dx-button
+                        text="Submit!"
+                        icon="check"
+                        type="default"
+                        (onClick)="submitComment()"></dx-button>
+            </div>
+        </div>
+    </div>
 </div>

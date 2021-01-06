@@ -93,9 +93,7 @@ router.post('/new', function(req, res) {
                   description: description,
                   imageUrl: imageUrl,
                   price: price,
-                  categoryId: categoryId,
-                  createdAt: createdAt,
-                  updatedAt: updatedAt
+                  categoryId: categoryId
                 },
                 message: "Product successfully added!",
                 success: true
